@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import authService from "../../services/authService";
 import { logout } from "../../redux/slices/authSlice";
 import Dropdown from 'react-bootstrap/Dropdown';
-import Image from 'react-bootstrap/Image'
-import Button from 'react-bootstrap/Button'
-import avatar from "../../avatar.png";
+import Image from 'react-bootstrap/Image';
+import Button from 'react-bootstrap/Button';
+import avatar from "../../avatar.jfif";
 
 function Navbar () {
     const user = useSelector((state) => state.auth.user);
@@ -18,7 +18,7 @@ function Navbar () {
     }
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-light text-white" style={{backgroundColor: "#508bfc"}}>
+        <nav className="navbar navbar-expand-lg navbar-light text-white fixed-top px-5"  style={{backgroundColor: "var(--primaryColor)"}}>
             <div className="container-fluid">
                 <Link className="navbar-brand text-white" to={"/"}>
                     <h3 className="mb-0">Learning System</h3>

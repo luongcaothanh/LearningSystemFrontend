@@ -44,7 +44,7 @@ function Login () {
 
     return (
         <div>
-            <section className="vh-100" style={{backgroundColor: "#508bfc"}}>
+            <section className="vh-100" style={{backgroundColor: "var(--primaryColor)"}}>
                 <div className="container py-5 h-100">
                     <div className="row d-flex justify-content-center align-items-center h-100">
                         <div className="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -66,7 +66,7 @@ function Login () {
                                                 name="password" value={loginState.password} onChange={handleChange}/>
                                     </div>
 
-                                    <button className="btn btn-primary btn-lg btn-block w-100" type="submit">Login</button>
+                                    <button className="btn btn-lg btn-block w-100 login-btn text-white" type="submit" style={{backgroundColor: "var(--primaryColor)"}}>Login</button>
                                 </form>
                             </div>
                         </div>

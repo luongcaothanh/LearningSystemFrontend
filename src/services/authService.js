@@ -64,7 +64,8 @@ const logout = () => {
 
 const login = async (username, password) => {
     try {
-        const response = await axios.post(API_URL + "/account/login", null, {params: {username, password}});
+        const loginForm = {username, password};
+        const response = await axios.post(API_URL + "/account/login", loginForm);
         
         if (response.data.errorCode === 0) {
             localStorage.setItem("accessToken", response.data.data.accessToken);

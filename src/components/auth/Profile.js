@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import authService from "../../services/authService";
-import avatar from "../../avatar.png";
+import avatar from "../../avatar.jfif";
 import {
     MDBCol,
     MDBContainer,
@@ -28,11 +28,11 @@ function Profile () {
                         <MDBCard className="mb-4">
                             <MDBCardBody className="text-center">
                                 <MDBCardImage
-                                src={avatar}
-                                alt="avatar"
-                                className="rounded-circle"
-                                style={{ width: '150px' }}
-                                fluid />
+                                    src={avatar}
+                                    alt="avatar"
+                                    className="rounded-circle border"
+                                    style={{ width: '150px' }}
+                                    fluid />
                                 <p className="text-muted my-2">{user.lName} {user.fName}</p>
                                 <p className="text-muted mb-2">{user.facultyName}</p>
                                 <p className="text-muted mb-2">
@@ -176,27 +176,27 @@ function Profile () {
                                     <MDBCardText className="mb-4"><span className="text-primary font-italic me-1">assigment</span> Project Status</MDBCardText>
                                     <MDBCardText className="mb-1" style={{ fontSize: '.77rem' }}>Web Design</MDBCardText>
                                     <MDBProgress className="rounded">
-                                    <MDBProgressBar width={80} valuemin={0} valuemax={100} />
+                                        <MDBProgressBar width={80} valuemin={0}  style={{backgroundColor: "var(--primaryColor)"}}/>
                                     </MDBProgress>
 
                                     <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Website Markup</MDBCardText>
                                     <MDBProgress className="rounded">
-                                    <MDBProgressBar width={72} valuemin={0} valuemax={100} />
+                                        <MDBProgressBar width={72} valuemin={0}  style={{backgroundColor: "var(--primaryColor)"}} />
                                     </MDBProgress>
 
                                     <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>One Page</MDBCardText>
                                     <MDBProgress className="rounded">
-                                    <MDBProgressBar width={89} valuemin={0} valuemax={100} />
+                                        <MDBProgressBar width={89} valuemin={0}  style={{backgroundColor: "var(--primaryColor)"}} />
                                     </MDBProgress>
 
                                     <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Mobile Template</MDBCardText>
                                     <MDBProgress className="rounded">
-                                    <MDBProgressBar width={55} valuemin={0} valuemax={100} />
+                                        <MDBProgressBar width={55} valuemin={0}  style={{backgroundColor: "var(--primaryColor)"}} />
                                     </MDBProgress>
 
                                     <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Backend API</MDBCardText>
                                     <MDBProgress className="rounded">
-                                    <MDBProgressBar width={66} valuemin={0} valuemax={100} />
+                                        <MDBProgressBar width={66} valuemin={0}  style={{backgroundColor: "var(--primaryColor)"}} />
                                     </MDBProgress>
                                 </MDBCardBody>
                                 </MDBCard>
@@ -208,27 +208,27 @@ function Profile () {
                                     <MDBCardText className="mb-4"><span className="text-primary font-italic me-1">assigment</span> Project Status</MDBCardText>
                                     <MDBCardText className="mb-1" style={{ fontSize: '.77rem' }}>Web Design</MDBCardText>
                                     <MDBProgress className="rounded">
-                                    <MDBProgressBar width={80} valuemin={0} valuemax={100} />
+                                    <MDBProgressBar width={80} valuemin={0}  style={{backgroundColor: "var(--primaryColor)"}} />
                                     </MDBProgress>
 
                                     <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Website Markup</MDBCardText>
                                     <MDBProgress className="rounded">
-                                    <MDBProgressBar width={72} valuemin={0} valuemax={100} />
+                                    <MDBProgressBar width={72} valuemin={0}  style={{backgroundColor: "var(--primaryColor)"}} />
                                     </MDBProgress>
 
                                     <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>One Page</MDBCardText>
                                     <MDBProgress className="rounded">
-                                    <MDBProgressBar width={89} valuemin={0} valuemax={100} />
+                                    <MDBProgressBar width={89} valuemin={0}  style={{backgroundColor: "var(--primaryColor)"}} />
                                     </MDBProgress>
 
                                     <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Mobile Template</MDBCardText>
                                     <MDBProgress className="rounded">
-                                    <MDBProgressBar width={55} valuemin={0} valuemax={100} />
+                                    <MDBProgressBar width={55} valuemin={0}  style={{backgroundColor: "var(--primaryColor)"}} />
                                     </MDBProgress>
 
                                     <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Backend API</MDBCardText>
                                     <MDBProgress className="rounded">
-                                    <MDBProgressBar width={66} valuemin={0} valuemax={100} />
+                                    <MDBProgressBar width={66} valuemin={0}  style={{backgroundColor: "var(--primaryColor)"}} />
                                     </MDBProgress>
                                 </MDBCardBody>
                                 </MDBCard>
