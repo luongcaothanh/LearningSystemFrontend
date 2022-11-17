@@ -18,6 +18,7 @@ import {
 
 function Profile () {
     const user = useSelector((state) => state.auth.user);
+    const phone = useSelector((state) => state.auth.phone);
 
     return (
         <section style={{ backgroundColor: '#eee' }}>
@@ -109,6 +110,15 @@ function Profile () {
                                         <MDBCardText className="text-muted">
                                             {user.gender === "Male" ? "Nam" : user.gender === "Female" ? "Nữ" : "Không biết"}
                                         </MDBCardText>
+                                    </MDBCol>
+                                </MDBRow>
+                                <hr />
+                                <MDBRow>
+                                    <MDBCol sm="3">
+                                        <MDBCardText>Số điện thoại</MDBCardText>
+                                    </MDBCol>
+                                    <MDBCol sm="9">
+                                        <MDBCardText className="text-muted">{phone === null ? "Chưa cập nhật" : phone.phoneNumber}</MDBCardText>
                                     </MDBCol>
                                 </MDBRow>
                                 <hr />

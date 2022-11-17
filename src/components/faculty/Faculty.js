@@ -23,7 +23,7 @@ function Faculty () {
 
         dispatch(getSubjectOfFacultyThunk(arg));
 
-        navigate("/subject");
+        navigate("/subject", { state: {facultyName} });
     }
 
     const handleGetStudentOfFaculty = (facultyName, event) => {
@@ -35,7 +35,7 @@ function Faculty () {
 
         dispatch(getStudentOfFacultyThunk(arg));
 
-        navigate("/student");
+        navigate("/student", { state: {facultyName} });
     }
 
     const handleGetLecturerOfFaculty = (facultyName, event) => {
@@ -47,7 +47,7 @@ function Faculty () {
 
         dispatch(getLecturerOfFacultyThunk(arg));
 
-        navigate("/lecturer");
+        navigate("/lecturer", { state: {facultyName} });
     }
 
     const handleGetClassOfFaculty = (facultyName, event) => {
@@ -59,7 +59,7 @@ function Faculty () {
 
         dispatch(getClassOfFacultyThunk(arg));
 
-        navigate("/class/faculty");
+        navigate("/class/faculty", { state: {facultyName} });
     }
 
     return (

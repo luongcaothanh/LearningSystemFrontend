@@ -2,12 +2,14 @@ import React from "react";
 import { useSelector } from "react-redux";
 import Table from 'react-bootstrap/Table';
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { getStudentInfoThunk } from "../../redux/slices/personSlice";
 
 function Student () {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const location = useLocation();
+    const { state } = location;
 
     const students = useSelector((state) => state.student.students);
 
@@ -27,6 +29,7 @@ function Student () {
         <>
             <div className="mx-5">
                 <h1 style={{marginTop: "80px", marginBottom: "20px"}}>Danh sách Sinh viên</h1>
+                <h3 className="mb-3">{state && state.facultyName && "Khoa: " + state.facultyName}</h3>
                 <Table striped bordered hover className="mb-5">
                     <thead>
                         <tr>

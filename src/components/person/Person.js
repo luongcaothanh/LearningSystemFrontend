@@ -18,6 +18,7 @@ import {
 
 function Person () {
     const person = useSelector((state) => state.person.person);
+    const phone = useSelector((state) => state.person.phone);
 
     return (
         <>
@@ -110,6 +111,15 @@ function Person () {
                                         <MDBCardText className="text-muted">
                                             {person.gender === "Male" ? "Nam" : person.gender === "Female" ? "Nữ" : "Không biết"}
                                         </MDBCardText>
+                                    </MDBCol>
+                                </MDBRow>
+                                <hr />
+                                <MDBRow>
+                                    <MDBCol sm="3">
+                                        <MDBCardText>Số điện thoại</MDBCardText>
+                                    </MDBCol>
+                                    <MDBCol sm="9">
+                                        <MDBCardText className="text-muted">{phone === null ? "Chưa cập nhật" : phone.phoneNumber}</MDBCardText>
                                     </MDBCol>
                                 </MDBRow>
                                 <hr />
