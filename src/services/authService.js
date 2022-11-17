@@ -20,45 +20,8 @@ const isUserLogged = () => {
     }
 };
 
-const isAAO = () => {
-    const role = localStorage.getItem("role");
-    if (role.includes("ROLE_AAO")) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-const isManager = () => {
-    const role = localStorage.getItem("role");
-    if (role.includes("ROLE_MANAGER")) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-const isLecturer = () => {
-    const role = localStorage.getItem("role");
-    if (role.includes("ROLE_LECTURER")) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-const isStudent = () => {
-    const role = localStorage.getItem("role");
-    if (role.includes("ROLE_STUDENT")) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
 const logout = () => {
     localStorage.removeItem("accessToken");
-    localStorage.removeItem("role");
 };
 
 
@@ -69,7 +32,6 @@ const login = async (username, password) => {
         
         if (response.data.errorCode === 0) {
             localStorage.setItem("accessToken", response.data.data.accessToken);
-            localStorage.setItem("role", response.data.data.role);
         }
 
         return response.data;
@@ -99,10 +61,6 @@ const getCurrentUser = async () => {
 const authService = {
     setTokenHeader,
     isUserLogged,
-    isAAO,
-    isManager,
-    isLecturer,
-    isStudent,
     logout,
     login,
     getCurrentUser

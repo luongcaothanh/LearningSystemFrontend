@@ -6,6 +6,7 @@ import Table from 'react-bootstrap/Table';
 import { getSubjectOfFacultyThunk } from "../../redux/slices/subjectSlide";
 import { getStudentOfFacultyThunk } from "../../redux/slices/studentSlice";
 import { getLecturerOfFacultyThunk } from "../../redux/slices/lecturerSlice";
+import { getClassOfFacultyThunk } from "../../redux/slices/classSlice";
 
 function Faculty () {
     const navigate = useNavigate();
@@ -49,6 +50,18 @@ function Faculty () {
         navigate("/lecturer");
     }
 
+    const handleGetClassOfFaculty = (facultyName, event) => {
+        event.preventDefault();
+
+        const arg = {
+            facultyName
+        }
+
+        dispatch(getClassOfFacultyThunk(arg));
+
+        navigate("/class/faculty");
+    }
+
     return (
         <>
             <div className="mx-5">
@@ -69,6 +82,7 @@ function Faculty () {
                                     <td>{faculty.facultyName}</td>
                                     <td>
                                         <button className="btn btn-outline-primary" onClick={(e) => handleGetClassOfSubject(faculty.facultyName, e)}>Môn học</button>
+                                        <button className="btn btn-outline-secondary ms-5" onClick={(e) => handleGetClassOfFaculty(faculty.facultyName, e)}>Loại lớp</button>
                                         <button className="btn btn-outline-success ms-5" onClick={(e) => handleGetLecturerOfFaculty(faculty.facultyName, e)}>Giảng viên</button>
                                         <button className="btn btn-outline-danger ms-5" onClick={(e) => handleGetStudentOfFaculty(faculty.facultyName, e)}>Sinh viên</button>
                                     </td>

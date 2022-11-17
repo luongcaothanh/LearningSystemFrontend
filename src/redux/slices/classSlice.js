@@ -7,6 +7,12 @@ export const getClassOfSubjectThunk = createAsyncThunk('class/subject', async (a
     return response;
 });
 
+export const getClassOfFacultyThunk = createAsyncThunk('class/faculty', async (arg) => {
+    const { facultyName } = arg;
+    const response = await classService.getClassOfFaculty(facultyName);
+    return response;
+});
+
 export const classSlice = createSlice ({
     name: 'class',
     initialState: {
@@ -16,6 +22,9 @@ export const classSlice = createSlice ({
     extraReducers: builder => {
         builder
             .addCase(getClassOfSubjectThunk.fulfilled, (state, action) => {
+                state.classes = action.payload.data.classes;
+            })
+            .addCase(getClassOfFacultyThunk.fulfilled, (state, action) => {
                 state.classes = action.payload.data.classes;
             })
     }

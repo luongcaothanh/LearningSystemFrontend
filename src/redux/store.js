@@ -7,6 +7,7 @@ import studentSlice from "./slices/studentSlice";
 import subjectSlide from "./slices/subjectSlide";
 import classSlice from "./slices/classSlice";
 import subclassSlice from "./slices/subclassSlice";
+import personSlice from "./slices/personSlice";
 
 const rootReducer = {
     auth: authSlice,
@@ -16,7 +17,8 @@ const rootReducer = {
     student: studentSlice,
     subject: subjectSlide,
     class: classSlice,
-    subclass: subclassSlice
+    subclass: subclassSlice,
+    person: personSlice
 };
 
 export default configureStore ({

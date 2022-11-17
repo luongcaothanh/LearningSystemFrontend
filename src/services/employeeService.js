@@ -16,8 +16,36 @@ const getAllEmployee = async () => {
     }
 }
 
+const getAAOInfo = async (personID) => {
+    try {
+        const response = await axios.get(API_URL + "/aao/" + personID, {headers: authService.setTokenHeader()});
+        return response.data;
+    } catch (error) {
+        if (error.response.data) {
+            return error.response.data;
+        } else {
+            return { success: false, message: error.message };
+        }
+    }
+}
+
+const getManagerInfo = async (personID) => {
+    try {
+        const response = await axios.get(API_URL + "/manager/" + personID, {headers: authService.setTokenHeader()});
+        return response.data;
+    } catch (error) {
+        if (error.response.data) {
+            return error.response.data;
+        } else {
+            return { success: false, message: error.message };
+        }
+    }
+}
+
 const employeeService = {
-    getAllEmployee
+    getAllEmployee,
+    getAAOInfo,
+    getManagerInfo
 };
 
 export default employeeService;

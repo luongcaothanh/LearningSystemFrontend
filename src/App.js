@@ -16,6 +16,9 @@ import Student from "./components/student/Student";
 import Subject from "./components/subject/Subject";
 import Class from "./components/class/Class";
 import Subclass from "./components/subclass/Subclass";
+import ClassOfFaculty from "./components/class/ClassOfFaculty";
+import StudentOfSubclass from "./components/student/StudentOfSubclass";
+import Person from "./components/person/Person";
 
 function App() {
     const dispatch = useDispatch();
@@ -40,6 +43,9 @@ function App() {
                 <Route path="/subject" element={<PrivateRoute><Subject/></PrivateRoute>} />
                 <Route path="/class" element={<PrivateRoute><Class/></PrivateRoute>} />
                 <Route path="/subclass" element={<PrivateRoute><Subclass/></PrivateRoute>} />
+                <Route path="/class/faculty" element={<PrivateRoute><ClassOfFaculty/></PrivateRoute>} />
+                <Route path="/subclass/student" element={<PrivateRoute><StudentOfSubclass/></PrivateRoute>} />
+                <Route path="/person" element={<PrivateRoute><Person/></PrivateRoute>} />
             </Routes>
         </div>
     );

@@ -18,8 +18,24 @@ const getClassOfSubject = async (subjectID) => {
     }
 }
 
+const getClassOfFaculty = async (facultyName) => {
+    try {
+        const response = await axios.get(API_URL + "/class/faculty",
+            {headers: authService.setTokenHeader(), params: {facultyName}});
+
+        return response.data;
+    } catch (error) {
+        if (error.response.data) {
+            return error.response.data;
+        } else {
+            return { success: false, message: error.message };
+        }
+    }
+}
+
 const classService  = {
-    getClassOfSubject
+    getClassOfSubject,
+    getClassOfFaculty
 };
 
 export default classService ;

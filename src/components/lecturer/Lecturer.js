@@ -1,9 +1,27 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import Table from 'react-bootstrap/Table';
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { getLecturerInfoThunk } from "../../redux/slices/personSlice";
 
 function Lecturer () {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     const lecturers = useSelector((state) => state.lecturer.lecturers);
+
+    const handleGetPerson = (personID, event) => {
+        event.preventDefault();
+
+        const arg = {
+            personID
+        }
+
+        dispatch(getLecturerInfoThunk(arg));
+
+        navigate("/person");
+    }
 
     return (
         <>
@@ -26,7 +44,7 @@ function Lecturer () {
                     <tbody>
                         {lecturers && lecturers.map((lecturer, index) => {
                             return (
-                                <tr key={lecturer.idCard}>
+                                <tr key={lecturer.idCard} onClick={(e) => handleGetPerson(lecturer.idCard, e)} style={{cursor: "pointer"}}>
                                     <td>{index+1}</td>
                                     <td>{lecturer.lName} {lecturer.fName}</td>
                                     <td>{lecturer.idCard}</td>

@@ -18,8 +18,24 @@ const getSubclassOfClass = async (subjectID, semester) => {
     }
 }
 
+const getStudentOfSubclass = async (subclassID, semester, subjectID) => {
+    try {
+        const response = await axios.get(API_URL + "/subclass/student",
+            {headers: authService.setTokenHeader(), params: {subclassID, semester, subjectID}});
+
+        return response.data;
+    } catch (error) {
+        if (error.response.data) {
+            return error.response.data;
+        } else {
+            return { success: false, message: error.message };
+        }
+    }
+}
+
 const subclassService  = {
-    getSubclassOfClass
+    getSubclassOfClass,
+    getStudentOfSubclass
 };
 
 export default subclassService ;

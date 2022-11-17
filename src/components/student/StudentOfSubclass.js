@@ -1,27 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import Table from 'react-bootstrap/Table';
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { getStudentInfoThunk } from "../../redux/slices/personSlice";
 
 function Student () {
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-
-    const students = useSelector((state) => state.student.students);
-
-    const handleGetPerson = (personID, event) => {
-        event.preventDefault();
-
-        const arg = {
-            personID
-        }
-
-        dispatch(getStudentInfoThunk(arg));
-
-        navigate("/person");
-    }
+    const students = useSelector((state) => state.subclass.students);
 
     return (
         <>
@@ -31,29 +13,35 @@ function Student () {
                     <thead>
                         <tr>
                             <th>#</th>
+                            <th>MSSV</th>
                             <th>Họ và tên</th>
-                            <th>CMND/CCCD</th>
                             <th>Ngày sinh</th>
                             <th>Giới tính</th>
-                            <th>MSSV</th>
-                            <th>Năm nhập học</th>
-                            <th>Khoa</th>
                             <th>Email</th>
+                            <th>Khoa</th>
+                            <th>Lớp</th>
+                            <th>Học kỳ</th>
+                            <th>Năm học</th>
+                            <th>Loại lớp</th>
+                            <th>Mã môn học</th>
                         </tr>
                     </thead>
                     <tbody>
                         {students && students.map((student, index) => {
                             return (
-                                <tr key={student.idCard} onClick={(e) => handleGetPerson(student.idCard, e)} style={{cursor: "pointer"}}>
+                                <tr key={student.studentID}>
                                     <td>{index+1}</td>
-                                    <td>{student.lName} {student.fName}</td>
-                                    <td>{student.idCard}</td>
+                                    <td>{student.studentID}</td>
+                                    <td>{student.fullName}</td>
                                     <td>{`${student.doB[2]}/${student.doB[1]}/${student.doB[0]}`}</td>
                                     <td>{student.gender === "Male" ? "Nam" : student.gender === "Female" ? "Nữ" : "Không biết"}</td>
-                                    <td>{student.studentID}</td>
-                                    <td>{student.admissionYear}</td>
-                                    <td>{student.facultyName}</td>
                                     <td>{student.email}</td>
+                                    <td>{student.facultyName}</td>
+                                    <td>{student.scid}</td>
+                                    <td>{student.scsemester}</td>
+                                    <td>{student.scyear}</td>
+                                    <td>{student.sctype}</td>
+                                    <td>{student.scsubjectID}</td>
                                 </tr>
                             );
                         })}

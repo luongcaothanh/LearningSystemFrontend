@@ -29,9 +29,23 @@ const getLecturerOfFaculty = async (facultyName) => {
     }
 }
 
+const getLecturerInfo = async (personID) => {
+    try {
+        const response = await axios.get(API_URL + "/lecturer/" + personID, {headers: authService.setTokenHeader()});
+        return response.data;
+    } catch (error) {
+        if (error.response.data) {
+            return error.response.data;
+        } else {
+            return { success: false, message: error.message };
+        }
+    }
+}
+
 const lecturerService = {
     getAllLecturer,
-    getLecturerOfFaculty
+    getLecturerOfFaculty,
+    getLecturerInfo
 };
 
 export default lecturerService;

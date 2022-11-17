@@ -16,11 +16,12 @@ import {
     MDBListGroupItem
   } from 'mdb-react-ui-kit';
 
-function Profile () {
-    const user = useSelector((state) => state.auth.user);
+function Person () {
+    const person = useSelector((state) => state.person.person);
 
     return (
-        <section style={{ backgroundColor: '#eee' }}>
+        <>
+            {person && <section style={{ backgroundColor: '#eee' }}>
             <MDBContainer className="py-5">
                 <MDBRow>
                     <MDBCol lg="4">
@@ -32,13 +33,13 @@ function Profile () {
                                     className="rounded-circle border"
                                     style={{ width: '150px' }}
                                     fluid />
-                                <p className="text-muted my-2">{user.lName} {user.fName}</p>
-                                <p className="text-muted mb-2">{user.facultyName}</p>
+                                <p className="text-muted my-2">{person.lName} {person.fName}</p>
+                                <p className="text-muted mb-2">{person.facultyName}</p>
                                 <p className="text-muted mb-2">
-                                    {user.roleName.includes("ROLE_AAO") && "Phòng đào tạo"}
-                                    {user.roleName.includes("ROLE_MANAGER") && "Quản lý khoa"}
-                                    {user.roleName.includes("ROLE_LECTURER") && "Giảng viên"}
-                                    {user.roleName.includes("ROLE_STUDENT") && "Sinh viên"}
+                                    {person.roleName.includes("ROLE_AAO") && "Phòng đào tạo"}
+                                    {person.roleName.includes("ROLE_MANAGER") && "Quản lý khoa"}
+                                    {person.roleName.includes("ROLE_LECTURER") && "Giảng viên"}
+                                    {person.roleName.includes("ROLE_STUDENT") && "Sinh viên"}
                                 </p>
                             </MDBCardBody>
                         </MDBCard>
@@ -79,7 +80,7 @@ function Profile () {
                                         <MDBCardText>Họ và tên</MDBCardText>
                                     </MDBCol>
                                     <MDBCol sm="9">
-                                        <MDBCardText className="text-muted">{user.lName} {user.fName}</MDBCardText>
+                                        <MDBCardText className="text-muted">{person.lName} {person.fName}</MDBCardText>
                                     </MDBCol>
                                 </MDBRow>
                                 <hr />
@@ -88,7 +89,7 @@ function Profile () {
                                         <MDBCardText>CMND/CCCD</MDBCardText>
                                     </MDBCol>
                                     <MDBCol sm="9">
-                                        <MDBCardText className="text-muted">{user.idCard}</MDBCardText>
+                                        <MDBCardText className="text-muted">{person.idCard}</MDBCardText>
                                     </MDBCol>
                                 </MDBRow>
                                 <hr />
@@ -97,7 +98,7 @@ function Profile () {
                                         <MDBCardText>Ngày sinh</MDBCardText>
                                     </MDBCol>
                                     <MDBCol sm="9">
-                                        <MDBCardText className="text-muted">{`${user.doB[2]}/${user.doB[1]}/${user.doB[0]}`}</MDBCardText>
+                                        <MDBCardText className="text-muted">{`${person.doB[2]}/${person.doB[1]}/${person.doB[0]}`}</MDBCardText>
                                     </MDBCol>
                                 </MDBRow>
                                 <hr />
@@ -107,7 +108,7 @@ function Profile () {
                                     </MDBCol>
                                     <MDBCol sm="9">
                                         <MDBCardText className="text-muted">
-                                            {user.gender === "Male" ? "Nam" : user.gender === "Female" ? "Nữ" : "Không biết"}
+                                            {person.gender === "Male" ? "Nam" : person.gender === "Female" ? "Nữ" : "Không biết"}
                                         </MDBCardText>
                                     </MDBCol>
                                 </MDBRow>
@@ -117,17 +118,17 @@ function Profile () {
                                         <MDBCardText>Email</MDBCardText>
                                     </MDBCol>
                                     <MDBCol sm="9">
-                                        <MDBCardText className="text-muted">{user.email}</MDBCardText>
+                                        <MDBCardText className="text-muted">{person.email}</MDBCardText>
                                     </MDBCol>
                                 </MDBRow>
-                                { user.studentID ? <>
+                                { person.studentID ? <>
                                         <hr />
                                             <MDBRow>
                                                 <MDBCol sm="3">
                                                     <MDBCardText>MSSV</MDBCardText>
                                                 </MDBCol>
                                                 <MDBCol sm="9">
-                                                    <MDBCardText className="text-muted">{user.studentID}</MDBCardText>
+                                                    <MDBCardText className="text-muted">{person.studentID}</MDBCardText>
                                                 </MDBCol>
                                             </MDBRow>
                                     </> : <>
@@ -137,13 +138,13 @@ function Profile () {
                                                     <MDBCardText>MSCB</MDBCardText>
                                                 </MDBCol>
                                                 <MDBCol sm="9">
-                                                    <MDBCardText className="text-muted">{user.employeeID}</MDBCardText>
+                                                    <MDBCardText className="text-muted">{person.employeeID}</MDBCardText>
                                                 </MDBCol>
                                             </MDBRow>
                                     </>
                                     
                                 }
-                                { user.admissionYear && 
+                                { person.admissionYear && 
                                     <>
                                         <hr />
                                             <MDBRow>
@@ -151,7 +152,7 @@ function Profile () {
                                                     <MDBCardText>Năm nhập học</MDBCardText>
                                                 </MDBCol>
                                                 <MDBCol sm="9">
-                                                    <MDBCardText className="text-muted">{user.admissionYear}</MDBCardText>
+                                                    <MDBCardText className="text-muted">{person.admissionYear}</MDBCardText>
                                                 </MDBCol>
                                             </MDBRow>
                                     </>
@@ -162,7 +163,7 @@ function Profile () {
                                         <MDBCardText>Khoa</MDBCardText>
                                     </MDBCol>
                                     <MDBCol sm="9">
-                                        <MDBCardText className="text-muted">{user.facultyName}</MDBCardText>
+                                        <MDBCardText className="text-muted">{person.facultyName}</MDBCardText>
                                     </MDBCol>
                                 </MDBRow>
                             </MDBCardBody>
@@ -236,8 +237,9 @@ function Profile () {
                     </MDBCol>
                 </MDBRow>
             </MDBContainer>
-        </section>
+        </section>}
+        </>
     );
 }
 
-export default Profile;
+export default Person;

@@ -1,9 +1,34 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import Table from 'react-bootstrap/Table';
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { getAAOInfoThunk, getManagerInfoThunk, getLecturerInfoThunk } from "../../redux/slices/personSlice";
 
 function Employee () {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     const employees = useSelector((state) => state.employee.employees);
+
+    const handleGetPerson = (personID, roleName, event) => {
+        event.preventDefault();
+
+        const arg = {
+            personID,
+            roleName
+        }
+
+        if (roleName.includes("ROLE_AAO")) {
+            dispatch(getAAOInfoThunk(arg));
+        } else if (roleName.includes("ROLE_MANAGER")) {
+            dispatch(getManagerInfoThunk(arg));
+        } else {
+            dispatch(getLecturerInfoThunk(arg));
+        }
+
+        navigate("/person");
+    }
 
     return (
         <>
@@ -26,7 +51,7 @@ function Employee () {
                     <tbody>
                         {employees && employees.map((employee, index) => {
                             return (
-                                <tr key={employee.idCard}>
+                                <tr key={employee.idCard} onClick={(e) => handleGetPerson(employee.idCard, employee.roleName, e)} style={{cursor: "pointer"}}>
                                     <td>{index+1}</td>
                                     <td>{employee.lName} {employee.fName}</td>
                                     <td>{employee.idCard}</td>
