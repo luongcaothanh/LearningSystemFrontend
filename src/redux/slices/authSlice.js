@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "../../services/authService";
 import personService from "../../services/personService";
 import studentService from "../../services/studentService";
+import subclassService from "../../services/subclassService";
 
 export const loginThunk = createAsyncThunk('auth/login', async (arg, thunkAPI) => {
     const { username, password } = arg;
@@ -19,12 +20,19 @@ export const loadUserThunk = createAsyncThunk('auth/loaduser', async (arg, thunk
         const arg2 = { personID };
         thunkAPI.dispatch(getCurrentPersonPhoneThunk(arg2));
 
-        // get student status
+        // get student status & subclass
         const roleName = response.data.info.roleName;
         if (roleName.includes("ROLE_STUDENT")) {
             const studentID = response.data.info.studentID;
             const arg3 = { studentID };
             thunkAPI.dispatch(getAuthStudentStatusThunk(arg3));
+            thunkAPI.dispatch(getAuthSubclassOfStudentThunk(arg3));
+        }
+
+        if (roleName.includes("ROLE_LECTURER")) {
+            const lecturerID = response.data.info.employeeID;
+            const arg4 = { lecturerID };
+            thunkAPI.dispatch(getAuthSubclassOfLecturerThunk(arg4));
         }
     }
     return response;
@@ -42,13 +50,27 @@ export const getAuthStudentStatusThunk = createAsyncThunk('auth/student/status',
     return response;
 });
 
+export const getAuthSubclassOfStudentThunk = createAsyncThunk('auth/student/subclass', async (arg) => {
+    const { studentID } = arg;
+    const response = await subclassService.getSubclassOfStudent(studentID);
+    return response;
+});
+
+export const getAuthSubclassOfLecturerThunk = createAsyncThunk('auth/lecturer/subclass', async (arg) => {
+    const { lecturerID } = arg;
+    const response = await subclassService.getSubclassOfLecturer(lecturerID);
+    return response;
+});
+
 export const authSlice = createSlice ({
     name: 'auth',
     initialState: {
         isAuthenticated: false,
         user: null,
         phone: null,
-        studentStatus: null
+        studentStatus: null,
+        subclassOfStudent: null,
+        subclassOfLecturer: null
     },
     reducers: {
         logout: (state) => {
@@ -56,6 +78,7 @@ export const authSlice = createSlice ({
             state.user = null;
             state.phone = null;
             state.studentStatus = null;
+            state.subclassOfStudent = null;
         }
     },
     extraReducers: builder => {
@@ -69,6 +92,12 @@ export const authSlice = createSlice ({
             })
             .addCase(getAuthStudentStatusThunk.fulfilled, (state, action) => {
                 state.studentStatus = action.payload.data.statusOfStudent;
+            })
+            .addCase(getAuthSubclassOfStudentThunk.fulfilled, (state, action) => {
+                state.subclassOfStudent = action.payload.data.subclassesOfStudent;
+            })
+            .addCase(getAuthSubclassOfLecturerThunk.fulfilled, (state, action) => {
+                state.subclassOfLecturer = action.payload.data.subclassesOfLecturer;
             })
     }
 });

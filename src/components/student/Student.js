@@ -4,6 +4,7 @@ import Table from 'react-bootstrap/Table';
 import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { getStudentInfoThunk, getStudentStatusThunk } from "../../redux/slices/personSlice";
+import { getSubclassOfStudentThunk } from "../../redux/slices/subclassSlice";
 
 function Student () {
     const navigate = useNavigate();
@@ -26,6 +27,7 @@ function Student () {
 
         dispatch(getStudentInfoThunk(arg));
         dispatch(getStudentStatusThunk(arg2));
+        dispatch(getSubclassOfStudentThunk(arg2));
 
         navigate("/person");
     }

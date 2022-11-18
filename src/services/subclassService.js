@@ -33,9 +33,41 @@ const getStudentOfSubclass = async (subclassID, semester, subjectID) => {
     }
 }
 
+const getSubclassOfStudent = async (studentID) => {
+    try {
+        const response = await axios.get(API_URL + "/subclass_student/" + studentID,
+            {headers: authService.setTokenHeader()});
+
+        return response.data;
+    } catch (error) {
+        if (error.response.data) {
+            return error.response.data;
+        } else {
+            return { success: false, message: error.message };
+        }
+    }
+}
+
+const getSubclassOfLecturer = async (lecturerID) => {
+    try {
+        const response = await axios.get(API_URL + "/subclass_lecturer/" + lecturerID,
+            {headers: authService.setTokenHeader()});
+
+        return response.data;
+    } catch (error) {
+        if (error.response.data) {
+            return error.response.data;
+        } else {
+            return { success: false, message: error.message };
+        }
+    }
+}
+
 const subclassService  = {
     getSubclassOfClass,
-    getStudentOfSubclass
+    getStudentOfSubclass,
+    getSubclassOfStudent,
+    getSubclassOfLecturer
 };
 
 export default subclassService ;

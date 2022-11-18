@@ -20,6 +20,8 @@ import ClassOfFaculty from "./components/class/ClassOfFaculty";
 import StudentOfSubclass from "./components/student/StudentOfSubclass";
 import Person from "./components/person/Person";
 import StudentStatus from "./components/student/StudentStatus";
+import SubclassOfStudent from "./components/subclass/SubclassOfStudent";
+import SubclassOfLecturer from "./components/subclass/SubclassOfLecturer";
 
 function App() {
     const dispatch = useDispatch();
@@ -48,6 +50,8 @@ function App() {
                 <Route path="/subclass/student" element={<PrivateRoute><StudentOfSubclass/></PrivateRoute>} />
                 <Route path="/person" element={<PrivateRoute><Person/></PrivateRoute>} />
                 <Route path="/student/status" element={<PrivateRoute><StudentStatus/></PrivateRoute>} />
+                <Route path="/student/subclass" element={<PrivateRoute><SubclassOfStudent/></PrivateRoute>} />
+                <Route path="/lecturer/subclass" element={<PrivateRoute><SubclassOfLecturer/></PrivateRoute>} />
             </Routes>
         </div>
     );

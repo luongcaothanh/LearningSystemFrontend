@@ -23,6 +23,8 @@ function Person () {
     const person = useSelector((state) => state.person.person);
     const phone = useSelector((state) => state.person.phone);
     const studentStatus = useSelector((state) => state.person.studentStatus);
+    const subclassOfStudent = useSelector((state) => state.subclass.subclassOfStudent);
+    const subclassOfLecturer = useSelector((state) => state.subclass.subclassOfLecturer);
 
     const handleGetStudentStatus = (event) => {
         event.preventDefault();
@@ -31,6 +33,28 @@ function Person () {
             { state: {
                 fullName: person.lName + " " + person.fName,
                 studentID: person.studentID
+            }}
+        );
+    }
+
+    const handleGetSubclassOfStudent = (event) => {
+        event.preventDefault();
+
+        navigate("/student/subclass",
+            { state: {
+                fullName: person.lName + " " + person.fName,
+                studentID: person.studentID
+            }}
+        );
+    }
+
+    const handleGetSubclassOfLecturer = (event) => {
+        event.preventDefault();
+
+        navigate("/lecturer/subclass",
+            { state: {
+                fullName: person.lName + " " + person.fName,
+                lecturerID: person.employeeID
             }}
         );
     }
@@ -200,6 +224,100 @@ function Person () {
                                     {person.roleName.includes("ROLE_STUDENT")
                                     ?   <MDBCardBody>
                                             <MDBCardText className="d-flex justify-content-between">
+                                                <span>Môn học</span>
+                                                <span>Lớp</span>
+                                                <span>Học kỳ</span>
+                                            </MDBCardText>
+
+                                            <hr></hr>
+
+                                            {(subclassOfStudent && subclassOfStudent.length === 0)
+                                                ? "Chưa cập nhật"
+                                                : <>
+                                                    {subclassOfStudent && subclassOfStudent.map((isubclassOfStudent, index) => {
+                                                        if (index >= subclassOfStudent.length - 5) {
+                                                            return <div key={index} className="mb-3">
+                                                                <MDBCardText className="mb-1 d-flex justify-content-between">
+                                                                    <span>{isubclassOfStudent.scsubjectID}</span>
+                                                                    <span>{isubclassOfStudent.scid}</span>
+                                                                    <span>{isubclassOfStudent.scsemester}</span>
+                                                                </MDBCardText>
+                                                            </div>;
+                                                        }
+                                                        
+                                                    })}
+
+                                                    <button className="btn btn-outline-primary" onClick={handleGetSubclassOfStudent}>Xem tất cả</button>
+                                                </>
+                                            }
+                                        </MDBCardBody>
+                                    :   person.roleName.includes("ROLE_LECTURER")
+                                        ?   <MDBCardBody>
+                                                <MDBCardText className="d-flex justify-content-between">
+                                                    <span>Môn học</span>
+                                                    <span>Lớp</span>
+                                                    <span>Học kỳ</span>
+                                                </MDBCardText>
+
+                                                <hr></hr>
+
+                                                {(subclassOfLecturer && subclassOfLecturer.length === 0)
+                                                    ? "Chưa cập nhật"
+                                                    : <>
+                                                        {subclassOfLecturer && subclassOfLecturer.map((isubclassOfLecturer, index) => {
+                                                            if (index >= subclassOfLecturer.length - 5) {
+                                                                return <div key={index} className="mb-3">
+                                                                    <MDBCardText className="mb-1 d-flex justify-content-between">
+                                                                        <span>{isubclassOfLecturer.csubjectID}</span>
+                                                                        <span>{isubclassOfLecturer.id}</span>
+                                                                        <span>{isubclassOfLecturer.csemester}</span>
+                                                                    </MDBCardText>
+                                                                </div>;
+                                                            }
+                                                            
+                                                        })}
+
+                                                        <button className="btn btn-outline-primary" onClick={handleGetSubclassOfLecturer}>Xem tất cả</button>
+                                                    </>
+                                                }
+                                            </MDBCardBody>
+
+                                        :   <MDBCardBody>
+                                                <MDBCardText className="mb-4"><span className="text-primary font-italic me-1">assigment</span> Project Status</MDBCardText>
+                                                <MDBCardText className="mb-1" style={{ fontSize: '.77rem' }}>Web Design</MDBCardText>
+                                                <MDBProgress className="rounded">
+                                                <MDBProgressBar width={80} valuemin={0}  style={{backgroundColor: "var(--primaryColor)"}} />
+                                                </MDBProgress>
+
+                                                <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Website Markup</MDBCardText>
+                                                <MDBProgress className="rounded">
+                                                <MDBProgressBar width={72} valuemin={0}  style={{backgroundColor: "var(--primaryColor)"}} />
+                                                </MDBProgress>
+
+                                                <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>One Page</MDBCardText>
+                                                <MDBProgress className="rounded">
+                                                <MDBProgressBar width={89} valuemin={0}  style={{backgroundColor: "var(--primaryColor)"}} />
+                                                </MDBProgress>
+
+                                                <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Mobile Template</MDBCardText>
+                                                <MDBProgress className="rounded">
+                                                <MDBProgressBar width={55} valuemin={0}  style={{backgroundColor: "var(--primaryColor)"}} />
+                                                </MDBProgress>
+
+                                                <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Backend API</MDBCardText>
+                                                <MDBProgress className="rounded">
+                                                <MDBProgressBar width={66} valuemin={0}  style={{backgroundColor: "var(--primaryColor)"}} />
+                                                </MDBProgress>
+                                            </MDBCardBody>
+                                    }
+                                </MDBCard>
+                            </MDBCol>
+
+                            <MDBCol md="6">
+                                <MDBCard className="mb-4 mb-md-0">
+                                    {person.roleName.includes("ROLE_STUDENT")
+                                    ?   <MDBCardBody>
+                                            <MDBCardText className="d-flex justify-content-between">
                                                 <span>Học kỳ</span>
                                                 <span>Số tín chỉ</span>
                                             </MDBCardText>
@@ -211,7 +329,7 @@ function Person () {
                                                 : <>
                                                     {studentStatus && studentStatus.map((istudentStatus, index) => {
                                                         if (index >= studentStatus.length - 5) {
-                                                            return <div key={index} className="mb-3">
+                                                            return <div key={index} className="mb-2">
                                                                 <MDBCardText className="mb-1 d-flex justify-content-between">
                                                                     <span>{istudentStatus.semester}</span>
                                                                     <span className="">{istudentStatus.registeredCreditsNo}</span>
@@ -256,38 +374,6 @@ function Person () {
                                             </MDBProgress>
                                         </MDBCardBody>
                                     }
-                                </MDBCard>
-                            </MDBCol>
-
-                            <MDBCol md="6">
-                                <MDBCard className="mb-4 mb-md-0">
-                                <MDBCardBody>
-                                    <MDBCardText className="mb-4"><span className="text-primary font-italic me-1">assigment</span> Project Status</MDBCardText>
-                                    <MDBCardText className="mb-1" style={{ fontSize: '.77rem' }}>Web Design</MDBCardText>
-                                    <MDBProgress className="rounded">
-                                    <MDBProgressBar width={80} valuemin={0}  style={{backgroundColor: "var(--primaryColor)"}} />
-                                    </MDBProgress>
-
-                                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Website Markup</MDBCardText>
-                                    <MDBProgress className="rounded">
-                                    <MDBProgressBar width={72} valuemin={0}  style={{backgroundColor: "var(--primaryColor)"}} />
-                                    </MDBProgress>
-
-                                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>One Page</MDBCardText>
-                                    <MDBProgress className="rounded">
-                                    <MDBProgressBar width={89} valuemin={0}  style={{backgroundColor: "var(--primaryColor)"}} />
-                                    </MDBProgress>
-
-                                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Mobile Template</MDBCardText>
-                                    <MDBProgress className="rounded">
-                                    <MDBProgressBar width={55} valuemin={0}  style={{backgroundColor: "var(--primaryColor)"}} />
-                                    </MDBProgress>
-
-                                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Backend API</MDBCardText>
-                                    <MDBProgress className="rounded">
-                                    <MDBProgressBar width={66} valuemin={0}  style={{backgroundColor: "var(--primaryColor)"}} />
-                                    </MDBProgress>
-                                </MDBCardBody>
                                 </MDBCard>
                             </MDBCol>
                         </MDBRow>
