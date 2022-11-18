@@ -12,10 +12,10 @@ function Class () {
 
     const [subclassOfStudent, setSubclassOfStudent] = useState(null);
     useEffect(() => {
-        if (personSubclassStudent) {
-            setSubclassOfStudent(personSubclassStudent);
-        } else {
+        if (authSubclassOfStudent) {
             setSubclassOfStudent(authSubclassOfStudent);
+        } else {
+            setSubclassOfStudent(personSubclassStudent);
         }
     }, [personSubclassStudent, authSubclassOfStudent])
 

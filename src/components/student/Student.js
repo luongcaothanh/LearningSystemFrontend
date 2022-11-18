@@ -12,6 +12,7 @@ function Student () {
     const location = useLocation();
     const { state } = location;
 
+    const user = useSelector((state) => state.auth.user);
     const students = useSelector((state) => state.student.students);
 
     const handleGetPerson = (personID, studentID, event) => {
@@ -32,6 +33,41 @@ function Student () {
         navigate("/person");
     }
 
+    const handleGetStudentStatus = (lName, fName, studentID, event) => {
+        event.preventDefault();
+
+        const arg = {
+            studentID
+        }
+
+        dispatch(getStudentStatusThunk(arg));
+
+        navigate("/student/status",
+            { state: {
+                fullName: lName + " " + fName,
+                studentID: studentID
+            }}
+        );
+    }
+
+    const handleGetSubclassOfStudent = (lName, fName, studentID, event) => {
+        event.preventDefault();
+
+        const arg = {
+            studentID
+        }
+
+        dispatch(getSubclassOfStudentThunk(arg));
+
+        navigate("/student/subclass",
+            { state: {
+                fullName: lName + " " + fName,
+                studentID: studentID
+            }}
+        );
+    }
+
+
     return (
         <>
             <div className="mx-5">
@@ -49,12 +85,15 @@ function Student () {
                             <th>Năm nhập học</th>
                             <th>Khoa</th>
                             <th>Email</th>
+                            {user.roleName.includes("ROLE_MANAGER") ? <th>Trạng thái</th> : <></>}
+                            {user.roleName.includes("ROLE_MANAGER") ? <th>Lớp</th> : <></>}
                         </tr>
                     </thead>
                     <tbody>
                         {students && students.map((student, index) => {
                             return (
-                                <tr key={student.idCard} onClick={(e) => handleGetPerson(student.idCard, student.studentID, e)} style={{cursor: "pointer"}}>
+                                user.roleName.includes("ROLE_AAO")
+                                ? <tr key={student.idCard} onClick={(e) => handleGetPerson(student.idCard, student.studentID, e)} style={{cursor: "pointer"}}>
                                     <td>{index+1}</td>
                                     <td>{student.lName} {student.fName}</td>
                                     <td>{student.idCard}</td>
@@ -64,6 +103,29 @@ function Student () {
                                     <td>{student.admissionYear}</td>
                                     <td>{student.facultyName}</td>
                                     <td>{student.email}</td>
+                                </tr>
+                                : <tr key={student.idCard}>
+                                    <td>{index+1}</td>
+                                    <td>{student.lName} {student.fName}</td>
+                                    <td>{student.idCard}</td>
+                                    <td>{`${student.doB[2]}/${student.doB[1]}/${student.doB[0]}`}</td>
+                                    <td>{student.gender === "Male" ? "Nam" : student.gender === "Female" ? "Nữ" : "Không biết"}</td>
+                                    <td>{student.studentID}</td>
+                                    <td>{student.admissionYear}</td>
+                                    <td>{student.facultyName}</td>
+                                    <td>{student.email}</td>
+                                    {user.roleName.includes("ROLE_MANAGER")
+                                    ? <td>
+                                        <button className="btn btn-outline-primary" onClick={(e) => handleGetStudentStatus(student.lName, student.fName, student.studentID, e)}>Xem</button>
+                                      </td>
+                                    : <></>
+                                    }
+                                    {user.roleName.includes("ROLE_MANAGER")
+                                    ? <td>
+                                        <button className="btn btn-outline-primary" onClick={(e) => handleGetSubclassOfStudent(student.lName, student.fName, student.studentID, e)}>Xem</button>
+                                      </td>
+                                    : <></>
+                                    }
                                 </tr>
                             );
                         })}

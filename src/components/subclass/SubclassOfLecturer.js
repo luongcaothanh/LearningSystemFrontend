@@ -1,23 +1,41 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Table from 'react-bootstrap/Table';
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { getStudentOfSubclassThunk } from "../../redux/slices/subclassSlice";
 
 function Class () {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const location = useLocation();
     const { state } = location;
 
+    const user = useSelector((state) => state.auth.user);
     const personSubclassOfLecturer = useSelector((state) => state.subclass.subclassOfLecturer);
     const authSubclassOfLecturer = useSelector((state) => state.auth.subclassOfLecturer);
 
     const [subclassOfLecturer, setSubclassOfLecturer] = useState(null);
     useEffect(() => {
-        if (personSubclassOfLecturer) {
-            setSubclassOfLecturer(personSubclassOfLecturer);
-        } else {
+        if (authSubclassOfLecturer) {
             setSubclassOfLecturer(authSubclassOfLecturer);
+        } else {
+            setSubclassOfLecturer(personSubclassOfLecturer);
         }
     }, [personSubclassOfLecturer, authSubclassOfLecturer])
+
+    const handleGetStudentOfSubclass = (subclassID, semester, subjectID, event) => {
+        event.preventDefault();
+
+        const arg = {
+            subclassID,
+            semester,
+            subjectID
+        }
+
+        dispatch(getStudentOfSubclassThunk(arg));
+
+        navigate("/subclass/student", { state: {subclassID, semester, subjectID}});
+    }
 
     return (
         <>
@@ -42,7 +60,17 @@ function Class () {
                         :   <>
                                 {subclassOfLecturer && subclassOfLecturer.map((isubclassOfLecturer, index) => {
                                     return (
-                                        <tr key={index}>
+                                        user.roleName.includes("ROLE_LECTURER")
+                                        ? <tr key={index} onClick={(e) => handleGetStudentOfSubclass(isubclassOfLecturer.id, isubclassOfLecturer.csemester, isubclassOfLecturer.csubjectID, e)} style={{cursor: "pointer"}}>
+                                            <td>{index+1}</td>
+                                            <td>{isubclassOfLecturer.id}</td>
+                                            <td>{isubclassOfLecturer.ctype}</td>
+                                            <td>{isubclassOfLecturer.csemester}</td>
+                                            <td>{isubclassOfLecturer.cyear}</td>
+                                            <td>{isubclassOfLecturer.csubjectID}</td>
+                                            <td>{isubclassOfLecturer.subjectName}</td>
+                                        </tr>
+                                        : <tr key={index}>
                                             <td>{index+1}</td>
                                             <td>{isubclassOfLecturer.id}</td>
                                             <td>{isubclassOfLecturer.ctype}</td>

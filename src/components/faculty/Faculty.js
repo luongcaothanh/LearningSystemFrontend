@@ -12,9 +12,10 @@ function Faculty () {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    const user = useSelector((state) => state.auth.user);
     const faculties = useSelector((state) => state.faculty.faculties);
 
-    const handleGetClassOfSubject = (facultyName, event) => {
+    const handleGetSubjectOfFaculty = (facultyName, event) => {
         event.preventDefault();
 
         const arg = {
@@ -81,10 +82,14 @@ function Faculty () {
                                     <td>{index+1}</td>
                                     <td>{faculty.facultyName}</td>
                                     <td>
-                                        <button className="btn btn-outline-primary" onClick={(e) => handleGetClassOfSubject(faculty.facultyName, e)}>Môn học</button>
-                                        <button className="btn btn-outline-secondary ms-5" onClick={(e) => handleGetClassOfFaculty(faculty.facultyName, e)}>Loại lớp</button>
-                                        <button className="btn btn-outline-success ms-5" onClick={(e) => handleGetLecturerOfFaculty(faculty.facultyName, e)}>Giảng viên</button>
-                                        <button className="btn btn-outline-danger ms-5" onClick={(e) => handleGetStudentOfFaculty(faculty.facultyName, e)}>Sinh viên</button>
+                                        <button className="btn btn-outline-primary" onClick={(e) => handleGetSubjectOfFaculty(faculty.facultyName, e)}>Môn học</button>
+                                        {(user.roleName.includes("ROLE_AAO") || user.roleName.includes("ROLE_MANAGER"))
+                                        &&  <>
+                                                <button className="btn btn-outline-secondary ms-5" onClick={(e) => handleGetClassOfFaculty(faculty.facultyName, e)}>Loại lớp</button>
+                                                <button className="btn btn-outline-success ms-5" onClick={(e) => handleGetLecturerOfFaculty(faculty.facultyName, e)}>Giảng viên</button>
+                                                <button className="btn btn-outline-danger ms-5" onClick={(e) => handleGetStudentOfFaculty(faculty.facultyName, e)}>Sinh viên</button>
+                                            </>
+                                        }
                                     </td>
                                 </tr>
                             );

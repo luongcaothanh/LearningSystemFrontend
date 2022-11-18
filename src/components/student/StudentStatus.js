@@ -12,10 +12,10 @@ function Student () {
 
     const [studentStatus, setStudentStatus] = useState(null);
     useEffect(() => {
-        if (personStudentStatus) {
-            setStudentStatus(personStudentStatus);
-        } else {
+        if (authStudentStatus) {
             setStudentStatus(authStudentStatus);
+        } else {
+            setStudentStatus(personStudentStatus);
         }
     }, [personStudentStatus, authStudentStatus])
 
@@ -34,16 +34,21 @@ function Student () {
                         </tr>
                     </thead>
                     <tbody>
-                        {studentStatus && studentStatus.map((istudentStatus, index) => {
-                            return (
-                                <tr key={index}>
-                                    <td>{index+1}</td>
-                                    <td>{istudentStatus.semester}</td>
-                                    <td>{istudentStatus.learningStatus}</td>
-                                    <td>{istudentStatus.registeredCreditsNo}</td>
-                                </tr>
-                            );
-                        })}
+                        {(studentStatus && studentStatus.length === 0)
+                        ?   <tr><td colSpan="4">Chưa cập nhật</td></tr>
+                        :   <>
+                                {studentStatus && studentStatus.map((istudentStatus, index) => {
+                                    return (
+                                        <tr key={index}>
+                                            <td>{index+1}</td>
+                                            <td>{istudentStatus.semester}</td>
+                                            <td>{istudentStatus.learningStatus}</td>
+                                            <td>{istudentStatus.registeredCreditsNo}</td>
+                                        </tr>
+                                    );
+                                })}
+                            </>
+                        }
                     </tbody>
                 </Table>
             </div>

@@ -79,6 +79,7 @@ export const authSlice = createSlice ({
             state.phone = null;
             state.studentStatus = null;
             state.subclassOfStudent = null;
+            state.subclassOfLecturer = null;
         }
     },
     extraReducers: builder => {
