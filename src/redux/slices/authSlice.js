@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "../../services/authService";
 import personService from "../../services/personService";
+import studentService from "../../services/studentService";
 
 export const loginThunk = createAsyncThunk('auth/login', async (arg, thunkAPI) => {
     const { username, password } = arg;
@@ -17,6 +18,14 @@ export const loadUserThunk = createAsyncThunk('auth/loaduser', async (arg, thunk
         const personID = response.data.info.idCard;
         const arg2 = { personID };
         thunkAPI.dispatch(getCurrentPersonPhoneThunk(arg2));
+
+        // get student status
+        const roleName = response.data.info.roleName;
+        if (roleName.includes("ROLE_STUDENT")) {
+            const studentID = response.data.info.studentID;
+            const arg3 = { studentID };
+            thunkAPI.dispatch(getAuthStudentStatusThunk(arg3));
+        }
     }
     return response;
 });
@@ -27,17 +36,26 @@ export const getCurrentPersonPhoneThunk = createAsyncThunk('auth/phone', async (
     return response;
 });
 
+export const getAuthStudentStatusThunk = createAsyncThunk('auth/student/status', async (arg) => {
+    const { studentID } = arg;
+    const response = await studentService.getStudentStatus(studentID);
+    return response;
+});
+
 export const authSlice = createSlice ({
     name: 'auth',
     initialState: {
         isAuthenticated: false,
         user: null,
-        phone: null
+        phone: null,
+        studentStatus: null
     },
     reducers: {
         logout: (state) => {
             state.isAuthenticated = false;
             state.user = null;
+            state.phone = null;
+            state.studentStatus = null;
         }
     },
     extraReducers: builder => {
@@ -48,6 +66,9 @@ export const authSlice = createSlice ({
             })
             .addCase(getCurrentPersonPhoneThunk.fulfilled, (state, action) => {
                 state.phone = action.payload.data.phoneNumber;
+            })
+            .addCase(getAuthStudentStatusThunk.fulfilled, (state, action) => {
+                state.studentStatus = action.payload.data.statusOfStudent;
             })
     }
 });

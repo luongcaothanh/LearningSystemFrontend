@@ -46,12 +46,9 @@ function Navbar () {
                             <Dropdown.Divider className='m-0' />
 
                             <Dropdown.Item
-                                className='d-flex align-items-center rounded-top rounded-3'>
-                                <Button
-                                    className='p-0 text-dark text-start rounded-3 bg-transparent border-0'
-                                    onClick={handleLogout}>
-                                    Logout
-                                </Button>
+                                className='d-flex align-items-center rounded-top rounded-3'
+                                onClick={handleLogout}>
+                                Logout
                             </Dropdown.Item>
                             
                             

@@ -15,10 +15,25 @@ import {
     MDBListGroup,
     MDBListGroupItem
   } from 'mdb-react-ui-kit';
+import { useNavigate } from "react-router-dom";
 
 function Person () {
+    const navigate = useNavigate();
+
     const person = useSelector((state) => state.person.person);
     const phone = useSelector((state) => state.person.phone);
+    const studentStatus = useSelector((state) => state.person.studentStatus);
+
+    const handleGetStudentStatus = (event) => {
+        event.preventDefault();
+
+        navigate("/student/status",
+            { state: {
+                fullName: person.lName + " " + person.fName,
+                studentID: person.studentID
+            }}
+        );
+    }
 
     return (
         <>
@@ -182,33 +197,65 @@ function Person () {
                         <MDBRow>
                             <MDBCol md="6">
                                 <MDBCard className="mb-4 mb-md-0">
-                                <MDBCardBody>
-                                    <MDBCardText className="mb-4"><span className="text-primary font-italic me-1">assigment</span> Project Status</MDBCardText>
-                                    <MDBCardText className="mb-1" style={{ fontSize: '.77rem' }}>Web Design</MDBCardText>
-                                    <MDBProgress className="rounded">
-                                        <MDBProgressBar width={80} valuemin={0}  style={{backgroundColor: "var(--primaryColor)"}}/>
-                                    </MDBProgress>
+                                    {person.roleName.includes("ROLE_STUDENT")
+                                    ?   <MDBCardBody>
+                                            <MDBCardText className="d-flex justify-content-between">
+                                                <span>Học kỳ</span>
+                                                <span>Số tín chỉ</span>
+                                            </MDBCardText>
 
-                                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Website Markup</MDBCardText>
-                                    <MDBProgress className="rounded">
-                                        <MDBProgressBar width={72} valuemin={0}  style={{backgroundColor: "var(--primaryColor)"}} />
-                                    </MDBProgress>
+                                            <hr></hr>
 
-                                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>One Page</MDBCardText>
-                                    <MDBProgress className="rounded">
-                                        <MDBProgressBar width={89} valuemin={0}  style={{backgroundColor: "var(--primaryColor)"}} />
-                                    </MDBProgress>
+                                            {(studentStatus && studentStatus.length === 0)
+                                                ? "Chưa cập nhật"
+                                                : <>
+                                                    {studentStatus && studentStatus.map((istudentStatus, index) => {
+                                                        if (index >= studentStatus.length - 5) {
+                                                            return <div key={index} className="mb-3">
+                                                                <MDBCardText className="mb-1 d-flex justify-content-between">
+                                                                    <span>{istudentStatus.semester}</span>
+                                                                    <span className="">{istudentStatus.registeredCreditsNo}</span>
+                                                                </MDBCardText>
+                                                                <MDBProgress className="rounded">
+                                                                    <MDBProgressBar width={(istudentStatus.registeredCreditsNo * 100)/21} valuemin={0}  style={{backgroundColor: "var(--primaryColor)"}}/>
+                                                                </MDBProgress>
+                                                            </div>;
+                                                        }
+                                                        
+                                                    })}
 
-                                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Mobile Template</MDBCardText>
-                                    <MDBProgress className="rounded">
-                                        <MDBProgressBar width={55} valuemin={0}  style={{backgroundColor: "var(--primaryColor)"}} />
-                                    </MDBProgress>
+                                                    <button className="btn btn-outline-primary" onClick={handleGetStudentStatus}>Xem tất cả</button>
+                                                </>
+                                            }
+                                        </MDBCardBody>
+                                    :   <MDBCardBody>
+                                            <MDBCardText className="mb-4"><span className="text-primary font-italic me-1">assigment</span> Project Status</MDBCardText>
+                                            <MDBCardText className="mb-1" style={{ fontSize: '.77rem' }}>Web Design</MDBCardText>
+                                            <MDBProgress className="rounded">
+                                            <MDBProgressBar width={80} valuemin={0}  style={{backgroundColor: "var(--primaryColor)"}} />
+                                            </MDBProgress>
 
-                                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Backend API</MDBCardText>
-                                    <MDBProgress className="rounded">
-                                        <MDBProgressBar width={66} valuemin={0}  style={{backgroundColor: "var(--primaryColor)"}} />
-                                    </MDBProgress>
-                                </MDBCardBody>
+                                            <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Website Markup</MDBCardText>
+                                            <MDBProgress className="rounded">
+                                            <MDBProgressBar width={72} valuemin={0}  style={{backgroundColor: "var(--primaryColor)"}} />
+                                            </MDBProgress>
+
+                                            <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>One Page</MDBCardText>
+                                            <MDBProgress className="rounded">
+                                            <MDBProgressBar width={89} valuemin={0}  style={{backgroundColor: "var(--primaryColor)"}} />
+                                            </MDBProgress>
+
+                                            <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Mobile Template</MDBCardText>
+                                            <MDBProgress className="rounded">
+                                            <MDBProgressBar width={55} valuemin={0}  style={{backgroundColor: "var(--primaryColor)"}} />
+                                            </MDBProgress>
+
+                                            <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Backend API</MDBCardText>
+                                            <MDBProgress className="rounded">
+                                            <MDBProgressBar width={66} valuemin={0}  style={{backgroundColor: "var(--primaryColor)"}} />
+                                            </MDBProgress>
+                                        </MDBCardBody>
+                                    }
                                 </MDBCard>
                             </MDBCol>
 

@@ -42,10 +42,24 @@ const getStudentInfo = async (personID) => {
     }
 }
 
+const getStudentStatus = async (studentID) => {
+    try {
+        const response = await axios.get(API_URL + "/student_status/" + studentID, {headers: authService.setTokenHeader()});
+        return response.data;
+    } catch (error) {
+        if (error.response.data) {
+            return error.response.data;
+        } else {
+            return { success: false, message: error.message };
+        }
+    }
+}
+
 const studentService = {
     getAllStudent,
     getStudentOfFaculty,
-    getStudentInfo
+    getStudentInfo,
+    getStudentStatus
 };
 
 export default studentService;

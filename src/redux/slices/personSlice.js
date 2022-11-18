@@ -46,12 +46,19 @@ export const getPersonPhoneThunk = createAsyncThunk('person/phone', async (arg) 
     return response;
 });
 
+export const getStudentStatusThunk = createAsyncThunk('student/status', async (arg) => {
+    const { studentID } = arg;
+    const response = await studentService.getStudentStatus(studentID);
+    return response;
+});
+
 
 export const personSlice = createSlice ({
     name: 'person',
     initialState: {
         person: null,
-        phone: null
+        phone: null,
+        studentStatus: null
     },
     reducers: {},
     extraReducers: builder => {
@@ -70,6 +77,9 @@ export const personSlice = createSlice ({
             })
             .addCase(getPersonPhoneThunk.fulfilled, (state, action) => {
                 state.phone = action.payload.data.phoneNumber;
+            })
+            .addCase(getStudentStatusThunk.fulfilled, (state, action) => {
+                state.studentStatus = action.payload.data.statusOfStudent;
             })
     }
 });
