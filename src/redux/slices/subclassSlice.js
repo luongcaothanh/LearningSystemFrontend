@@ -25,6 +25,12 @@ export const getSubclassOfLecturerThunk = createAsyncThunk('subclass/of/lecturer
     return response;
 });
 
+export const getSubclassOfSubjectThunk = createAsyncThunk('subclass/of/subject', async (arg) => {
+    const { subjectID } = arg;
+    const response = await subclassService.getSubclassOfSubject(subjectID);
+    return response;
+});
+
 export const subclassSlice = createSlice ({
     name: 'subclass',
     initialState: {
@@ -47,6 +53,9 @@ export const subclassSlice = createSlice ({
             })
             .addCase(getSubclassOfLecturerThunk.fulfilled, (state, action) => {
                 state.subclassOfLecturer = action.payload.data.subclassesOfLecturer;
+            })
+            .addCase(getSubclassOfSubjectThunk.fulfilled, (state, action) => {
+                state.subclasses = action.payload.data.subclassesOfSubject;
             })
     }
 });

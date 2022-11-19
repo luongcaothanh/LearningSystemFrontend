@@ -11,6 +11,7 @@ function Class () {
     const location = useLocation();
     const { state } = location;
 
+    const user = useSelector((state) => state.auth.user);
     const subclasses = useSelector((state) => state.subclass.subclasses);
 
     const handleGetStudentOfSubclass = (subclassID, semester, subjectID, event) => {
@@ -31,7 +32,7 @@ function Class () {
         <>
             <div className="mx-5">
                 <h1 style={{marginTop: "80px", marginBottom: "20px"}}>Danh sách Lớp</h1>
-                <h3 className="mb-3">{state && state.subjectID && "Môn học: " + state.subjectID + ", Học kỳ: " + state.semester}</h3>
+                <h3 className="mb-3">{state && state.subjectID && "Môn học: " + state.subjectID + `${state.semester !== undefined ? ", Học kỳ: " + state.semester : ""}`}</h3>
                 <Table striped bordered hover className="mb-5">
                     <thead>
                         <tr>
@@ -51,7 +52,18 @@ function Class () {
                         :   <>
                                 {subclasses && subclasses.map((subclass, index) => {
                                     return (
-                                        <tr key={index} onClick={(e) => handleGetStudentOfSubclass(subclass.id, subclass.csemester, subclass.csubjectID, e)} style={{cursor: "pointer"}}>
+                                        (user.roleName.includes("ROLE_AAO") || user.roleName.includes("ROLE_MANAGER"))
+                                        ? <tr key={index} onClick={(e) => handleGetStudentOfSubclass(subclass.id, subclass.csemester, subclass.csubjectID, e)} style={{cursor: "pointer"}}>
+                                            <td>{index+1}</td>
+                                            <td>{subclass.id}</td>
+                                            <td>{subclass.ctype}</td>
+                                            <td>{subclass.csemester}</td>
+                                            <td>{subclass.cyear}</td>
+                                            <td>{subclass.csubjectID}</td>
+                                            <td>{subclass.subjectName}</td>
+                                            <td>{subclass.lecturer}</td>
+                                        </tr>
+                                        : <tr key={index}>
                                             <td>{index+1}</td>
                                             <td>{subclass.id}</td>
                                             <td>{subclass.ctype}</td>
