@@ -55,11 +55,25 @@ const getStudentStatus = async (studentID) => {
     }
 }
 
+const createStudent = async (studentCreatedForm) => {
+    try {
+        const response = await axios.post(API_URL + "/create/student", studentCreatedForm, {headers: authService.setTokenHeader()});
+        return response.data;
+    } catch (error) {
+        if (error.response.data) {
+            return error.response.data;
+        } else {
+            return { success: false, message: error.message };
+        }
+    }
+}
+
 const studentService = {
     getAllStudent,
     getStudentOfFaculty,
     getStudentInfo,
-    getStudentStatus
+    getStudentStatus,
+    createStudent
 };
 
 export default studentService;

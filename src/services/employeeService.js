@@ -42,10 +42,38 @@ const getManagerInfo = async (personID) => {
     }
 }
 
+const createAAO = async (AAOCreatedForm) => {
+    try {
+        const response = await axios.post(API_URL + "/create/aao", AAOCreatedForm, {headers: authService.setTokenHeader()});
+        return response.data;
+    } catch (error) {
+        if (error.response.data) {
+            return error.response.data;
+        } else {
+            return { success: false, message: error.message };
+        }
+    }
+}
+
+const createManager = async (managerCreatedForm) => {
+    try {
+        const response = await axios.post(API_URL + "/create/manager", managerCreatedForm, {headers: authService.setTokenHeader()});
+        return response.data;
+    } catch (error) {
+        if (error.response.data) {
+            return error.response.data;
+        } else {
+            return { success: false, message: error.message };
+        }
+    }
+}
+
 const employeeService = {
     getAllEmployee,
     getAAOInfo,
-    getManagerInfo
+    getManagerInfo,
+    createAAO,
+    createManager
 };
 
 export default employeeService;

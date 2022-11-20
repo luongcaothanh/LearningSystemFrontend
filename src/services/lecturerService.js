@@ -42,10 +42,24 @@ const getLecturerInfo = async (personID) => {
     }
 }
 
+const createLecturer = async (lecturerCreatedForm) => {
+    try {
+        const response = await axios.post(API_URL + "/create/lecturer", lecturerCreatedForm, {headers: authService.setTokenHeader()});
+        return response.data;
+    } catch (error) {
+        if (error.response.data) {
+            return error.response.data;
+        } else {
+            return { success: false, message: error.message };
+        }
+    }
+}
+
 const lecturerService = {
     getAllLecturer,
     getLecturerOfFaculty,
-    getLecturerInfo
+    getLecturerInfo,
+    createLecturer
 };
 
 export default lecturerService;

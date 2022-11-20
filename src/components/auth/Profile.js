@@ -11,9 +11,6 @@ import {
     MDBCardImage,
     MDBProgress,
     MDBProgressBar,
-    MDBIcon,
-    MDBListGroup,
-    MDBListGroupItem
 } from 'mdb-react-ui-kit';
 import { useNavigate } from "react-router-dom";
 
@@ -106,6 +103,8 @@ function Profile () {
                                                                 <span>{isubclassOfLecturer.csemester}</span>
                                                             </MDBCardText>
                                                         </div>;
+                                                    } else {
+                                                        return <></>;
                                                     }
                                                     
                                                 })}
@@ -249,6 +248,8 @@ function Profile () {
                                                                     <span>{isubclassOfStudent.scsemester}</span>
                                                                 </MDBCardText>
                                                             </div>;
+                                                        } else {
+                                                            return <></>;
                                                         }
                                                         
                                                     })}
@@ -286,6 +287,8 @@ function Profile () {
                                                                     <MDBProgressBar width={(istudentStatus.registeredCreditsNo * 100)/21} valuemin={0}  style={{backgroundColor: "var(--primaryColor)"}}/>
                                                                 </MDBProgress>
                                                             </div>;
+                                                        } else {
+                                                            return <></>;
                                                         }
                                                         
                                                     })}

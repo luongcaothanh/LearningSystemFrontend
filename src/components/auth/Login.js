@@ -32,9 +32,9 @@ function Login () {
         const response = await dispatch(loginThunk(loginForm));
         if (response.payload.errorCode !== 0) {
             setAlertState({ message: response.payload.message });
-                setTimeout(() => {
-                    setAlertState(null);
-                }, 5000);
+            setTimeout(() => {
+                setAlertState(null);
+            }, 5000);
         }
     };
 
