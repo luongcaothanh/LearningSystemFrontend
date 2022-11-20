@@ -22,12 +22,14 @@ import Person from "./components/person/Person";
 import StudentStatus from "./components/student/StudentStatus";
 import SubclassOfStudent from "./components/subclass/SubclassOfStudent";
 import SubclassOfLecturer from "./components/subclass/SubclassOfLecturer";
+import RegisteredSubject from "./components/subclass/RegisteredSubject";
 
 function App() {
     const dispatch = useDispatch();
 
     useEffect(() => {
         if (authService.isUserLogged()) {
+            document.title = "Learning System";
             dispatch(loadUserThunk());
         }
     }, [dispatch]);
@@ -52,6 +54,7 @@ function App() {
                 <Route path="/student/status" element={<PrivateRoute><StudentStatus/></PrivateRoute>} />
                 <Route path="/student/subclass" element={<PrivateRoute><SubclassOfStudent/></PrivateRoute>} />
                 <Route path="/lecturer/subclass" element={<PrivateRoute><SubclassOfLecturer/></PrivateRoute>} />
+                <Route path="/subclass/registered" element={<PrivateRoute><RegisteredSubject/></PrivateRoute>} />
             </Routes>
         </div>
     );

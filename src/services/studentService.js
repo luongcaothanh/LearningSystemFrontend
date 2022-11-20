@@ -68,12 +68,26 @@ const createStudent = async (studentCreatedForm) => {
     }
 }
 
+const attendSubclass = async (attendSubclassForm) => {
+    try {
+        const response = await axios.post(API_URL + "/attend", attendSubclassForm, {headers: authService.setTokenHeader()});
+        return response.data;
+    } catch (error) {
+        if (error.response.data) {
+            return error.response.data;
+        } else {
+            return { success: false, message: error.message };
+        }
+    }
+}
+
 const studentService = {
     getAllStudent,
     getStudentOfFaculty,
     getStudentInfo,
     getStudentStatus,
-    createStudent
+    createStudent,
+    attendSubclass
 };
 
 export default studentService;

@@ -30,8 +30,14 @@ const ToastMessages = ({object}) => {
             </Toast.Header>
             <Toast.Body className='d-flex flex-column align-items-center'>
                 <p className='mb-0 fw-bold'>{object.message}</p>
-                <p className='mb-0'>Họ và tên: {object.fullName}</p>
-                <p className='mb-0'>Khoa: {object.facultyName}</p>
+                {object.fullName
+                    ? <p className='mb-0'>Họ và tên: {object.fullName}</p>
+                    : <p className='mb-0'>Lớp: {object.subclassID}</p>
+                }
+                {object.facultyName
+                    ? <p className='mb-0'>Khoa: {object.facultyName}</p>
+                    : <p className='mb-0'>Môn học: {object.subjectName}</p>
+                }  
             </Toast.Body>
         </Toast>
     );

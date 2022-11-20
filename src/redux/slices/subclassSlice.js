@@ -31,13 +31,20 @@ export const getSubclassOfSubjectThunk = createAsyncThunk('subclass/of/subject',
     return response;
 });
 
+export const searchSubclassOfSubjectThunk = createAsyncThunk('subclass/subject/search', async (arg) => {
+    const { keyword } = arg;
+    const response = await subclassService.searchSubclassOfSubject(keyword);
+    return response;
+});
+
 export const subclassSlice = createSlice ({
     name: 'subclass',
     initialState: {
         subclasses: null,
         students: null,
         subclassOfStudent: null,
-        subclassOfLecturer: null
+        subclassOfLecturer: null,
+        subclassSearch: null
     },
     reducers: {},
     extraReducers: builder => {
@@ -56,6 +63,9 @@ export const subclassSlice = createSlice ({
             })
             .addCase(getSubclassOfSubjectThunk.fulfilled, (state, action) => {
                 state.subclasses = action.payload.data.subclassesOfSubject;
+            })
+            .addCase(searchSubclassOfSubjectThunk.fulfilled, (state, action) => {
+                state.subclassSearch = action.payload.data.subclasses;
             })
     }
 });

@@ -78,12 +78,31 @@ const getSubclassOfSubject = async (subjectID) => {
     }
 }
 
+const searchSubclassOfSubject = async (keyword) => {
+    try {
+        const response = await axios.get(API_URL + "/subclass/search",
+            {headers: authService.setTokenHeader(),
+            params: {keyword}
+            });
+
+        return response.data;
+    } catch (error) {
+        if (error.response.data) {
+            return error.response.data;
+        } else {
+            return { success: false, message: error.message };
+        }
+    }
+}
+
+
 const subclassService  = {
     getSubclassOfClass,
     getStudentOfSubclass,
     getSubclassOfStudent,
     getSubclassOfLecturer,
-    getSubclassOfSubject
+    getSubclassOfSubject,
+    searchSubclassOfSubject
 };
 
 export default subclassService ;
